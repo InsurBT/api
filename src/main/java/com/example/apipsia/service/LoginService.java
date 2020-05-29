@@ -51,7 +51,7 @@ public class LoginService implements AuthenticationProvider {
             
             Authentication grantedAuthentication = new UsernamePasswordAuthenticationToken(nom, password, new ArrayList<GrantedAuthority>());
 
-            log.info("successefully authenticated user {} tbarkellah 3lik", nom);
+            log.info("successefully authenticated user {}", nom);
             
             return grantedAuthentication;
         } catch (Exception e) {
