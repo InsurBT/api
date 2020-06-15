@@ -22,4 +22,54 @@ CREATE TABLE prestation (
     montantEngage NUMBER NOT NULL,
     CONSTRAINT prestation_pk PRIMARY KEY (id)
 )
+ CREATE TABLE PAYS (
+    ID NUMBER GENERATED ALWAYS AS IDENTITY,
+	NOM VARCHAR2(40) NOT NULL, 
+	CONSTRAINT PAYS_Pk PRIMARY KEY (ID)
+ )
 
+   CREATE TABLE VILLE (
+     CODE  NUMBER GENERATED ALWAYS AS IDENTITY,
+	 DESIGN VARCHAR2(40) NOT NULL, 
+	 CODPAYS  NUMBER NOT NULL,
+	 CONSTRAINT VILLE_PK PRIMARY KEY (CODE)
+ )
+
+ CREATE TABLE CAISSEETRANGERE (
+    CODE NUMBER GENERATED ALWAYS AS IDENTITY,
+	NOM VARCHAR2(50) NOT NULL, 
+	ADRESSE VARCHAR2(50) NOT NULL, 
+	VILLE NUMBER NOT NULL, 
+	PAYS NUMBER NOT NULL, 
+	TEL VARCHAR2(50) NOT NULL, 
+	FAX VARCHAR2(50) NOT NULL, 
+	EMAIL VARCHAR2(50) NOT NULL, 
+	CONSTRAINT CAISSEETRANGERE2_PK PRIMARY KEY (CODE)
+ )
+
+ 
+  CREATE TABLE CAISSEMERE (
+     CODE NUMBER GENERATED ALWAYS AS IDENTITY,
+	 NOM VARCHAR2(50) NOT NULL, 
+	 ADRESSE VARCHAR2(100) NOT NULL, 
+	 PAYS NUMBER NOT NULL, 
+	 CONSTRAINT CAISSEMERES_PK PRIMARY KEY (CODE),
+    CONSTRAINT PAYSS_FK FOREIGN KEY (PAYS) REFERENCES PAYS(ID)
+  )
+  /*****************************Procedure******************************/
+  create or replace PROCEDURE Search3(
+       p__code IN  CaisseMere.code%TYPE,
+       p__nom IN   CaisseMere.nom%TYPE,
+       p__pays IN  CaisseMere.pays%TYPE
+       )
+   AS
+    c1  sys_refcursor ;
+   Begin
+      open c1 for
+      SELECT * FROM CAISSEMERE  WHERE (p__code IS NULL OR CODE LIKE '%' || p__code || '%')
+            and (p__nom IS NULL OR NOM LIKE '%' || p__nom || '%')
+            AND (p__pays IS NULL OR PAYS LIKE '%' || p__pays || '%');
+      dbms_sql.return_result(c1);
+
+      commit;
+End;
