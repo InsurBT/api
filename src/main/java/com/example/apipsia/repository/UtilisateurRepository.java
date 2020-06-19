@@ -12,14 +12,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UtilisateurRepository {
     public List<Utilisateur> findAll(JdbcTemplate jdbcTemplate) throws DataAccessException {
-        String sql = "SELECT utilisateur.*, label AS agence FROM utilisateur, agence WHERE code_agence=code";
+        String sql = "SELECT utilisateur.*, label AS agence FROM insur.utilisateur, insur.agence WHERE code_agence=code";
 
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Utilisateur.class));
     
     }
 
     public int update(Utilisateur utilisateur, JdbcTemplate jdbcTemplate) throws DataAccessException {
-        String sql = "UPDATE utilisateur SET nom=?, nomComplet=?, code_agence=? WHERE cod=?";
+        String sql = "UPDATE insur.utilisateur SET nom=?, nomComplet=?, code_agence=? WHERE cod=?";
 
         return jdbcTemplate.update(
             sql,
@@ -31,7 +31,7 @@ public class UtilisateurRepository {
     }
 
     public List<Utilisateur> addUtilisateur(Utilisateur utilisateur, JdbcTemplate jdbcTemplate) throws Exception {
-        String sql = "INSERT INTO utilisateur (nom, nomComplet, code_agence) VALUES (?, ?,?)";
+        String sql = "INSERT INTO insur.utilisateur (nom, nomComplet, code_agence) VALUES (?, ?,?)";
 
         int count = jdbcTemplate.update(sql,
                 utilisateur.getNom(),
@@ -47,7 +47,7 @@ public class UtilisateurRepository {
     }
 
     public Utilisateur getUtilsateurByNom(String nom, JdbcTemplate jdbcTemplate) {
-        String sql = "SELECT * FROM utilisateur WHERE nom=?";
+        String sql = "SELECT * FROM insur.utilisateur WHERE nom=?";
 
         return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Utilisateur.class), nom);
     }

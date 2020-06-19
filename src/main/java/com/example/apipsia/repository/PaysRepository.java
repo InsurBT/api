@@ -12,26 +12,26 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class PaysRepository {
     public List<Pays> findAll(JdbcTemplate jdbcTemplate) throws DataAccessException {
-        String sql = "SELECT * FROM pays";
+        String sql = "SELECT * FROM insur.pays";
 
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Pays.class));
     
     }
 
     public Pays findById(long id, JdbcTemplate jdbcTemplate) throws DataAccessException {
-        String sql = "SELECT * FROM pays WHERE id=?";
+        String sql = "SELECT * FROM insur.pays WHERE id=?";
 
         return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Pays.class), id);
     }
 
     public int deleteOne(int id, JdbcTemplate jdbcTemplate) {
-        String sql = "DELETE FROM pays WHERE id=?";
+        String sql = "DELETE FROM insur.pays WHERE id=?";
 
         return jdbcTemplate.update(sql, id);
     }
 
     public int update(Pays pays, JdbcTemplate jdbcTemplate) throws DataAccessException {
-        String sql = "UPDATE pays SET nom=? WHERE id=?";
+        String sql = "UPDATE insur.pays SET nom=? WHERE id=?";
 
         return jdbcTemplate.update(
             sql,
@@ -41,7 +41,7 @@ public class PaysRepository {
     }
 
     public List<Pays> save(Pays pays, JdbcTemplate jdbcTemplate) throws DataAccessException {
-        String sql = "INSERT INTO pays (nom) VALUES (?)";
+        String sql = "INSERT INTO insur.pays (nom) VALUES (?)";
 
         jdbcTemplate.update(
             sql,

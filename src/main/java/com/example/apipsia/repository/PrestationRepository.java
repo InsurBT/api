@@ -12,20 +12,20 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class PrestationRepository {
     public List<Prestation> findAll(JdbcTemplate jdbcTemplate) throws DataAccessException {
-        String sql = "SELECT * FROM prestation";
+        String sql = "SELECT * FROM insur.prestation";
 
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Prestation.class));
     
     }
 
     public int deleteOne(int id, JdbcTemplate jdbcTemplate) {
-        String sql = "DELETE FROM prestation WHERE id=?";
+        String sql = "DELETE FROM insur.prestation WHERE id=?";
 
         return jdbcTemplate.update(sql, id);
     }
 
     public int update(Prestation prestation, JdbcTemplate jdbcTemplate) throws DataAccessException {
-        String sql = "UPDATE prestation SET type=?, nbrActes=?, montantPaye=?, montantEngage=? WHERE id=?";
+        String sql = "UPDATE insur.prestation SET type=?, nbrActes=?, montantPaye=?, montantEngage=? WHERE id=?";
 
         return jdbcTemplate.update(
             sql,
@@ -38,7 +38,7 @@ public class PrestationRepository {
     }
 
     public List<Prestation> save(Prestation prestation, JdbcTemplate jdbcTemplate) throws DataAccessException {
-        String sql = "INSERT INTO prestation (type, nbrActes, montantPaye, montantEngage) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO insur.prestation (type, nbrActes, montantPaye, montantEngage) VALUES (?, ?, ?, ?)";
 
         jdbcTemplate.update(
             sql,

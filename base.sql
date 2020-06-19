@@ -28,7 +28,6 @@ CREATE TABLE prestation (
 	CONSTRAINT PAYS_Pk PRIMARY KEY (ID)
  )
 
-<<<<<<< HEAD
 CREATE TABLE [dbo].[DirectionRegional](
     [Cod] [int] NOT NULL,
     [Design] [varchar](50) NULL,
@@ -42,7 +41,6 @@ CREATE TABLE DirectionRegional (
     Ville NUMBER NULL
 
 );
-=======
    CREATE TABLE VILLE (
      CODE  NUMBER GENERATED ALWAYS AS IDENTITY,
 	 DESIGN VARCHAR2(40) NOT NULL, 
@@ -88,4 +86,3 @@ CREATE TABLE DirectionRegional (
 
       commit;
 End;
->>>>>>> 53873ec6853ee0155c4e96eb784a6045f1f400df
