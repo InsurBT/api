@@ -13,14 +13,18 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CaisseEtrangereRepository {
     public List<CaisseEtrangere> list(JdbcTemplate jdbcTemplate) throws DataAccessException  {
-        String sql = "SELECT CaisseEtrangere.code, CaisseEtrangere.nom, CaisseEtrangere.adresse, pays.id AS idpays , pays.nom AS pays ,ville.code AS id , ville.design AS ville ,CaisseEtrangere.tel AS telephone ,CaisseEtrangere.fax,CaisseEtrangere.email  FROM insur.CaisseEtrangere , insur.pays , insur.ville WHERE ville.code =CaisseEtrangere.ville AND ville.codpays =pays.id" ;
+        String sql = "SELECT CaisseEtrangere.code, CaisseEtrangere.nom, CaisseEtrangere.adresse, pays.id_pays AS idpays , pays.label AS pays ,ville.id_ville AS id , ville.label AS ville ,CaisseEtrangere.tel AS telephone ,CaisseEtrangere.fax,CaisseEtrangere.email  FROM insur.CaisseEtrangere , insur.pays , insur.ville WHERE ville.id_ville =CaisseEtrangere.id_ville AND ville.id_pays =pays.id_pays" ;
        List<CaisseEtrangere> listCaisseEtrangeres = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(CaisseEtrangere.class));
        return listCaisseEtrangeres;
    }
 
+   public List<CaisseEtrangere> findAllByPaysVille(int idville,JdbcTemplate jdbcTemplate) throws DataAccessException {
+    String sql = "SELECT CaisseEtrangere.code, CaisseEtrangere.nom, CaisseEtrangere.adresse, pays.id_pays AS idpays , pays.label AS pays ,ville.id_ville AS id , ville.label AS ville ,CaisseEtrangere.tel AS telephone ,CaisseEtrangere.fax,CaisseEtrangere.email   FROM insur.CaisseEtrangere , insur.pays , insur.ville WHERE ville.id_ville =CaisseEtrangere.id_ville  AND ville.id_pays =pays.id_pays and CaisseEtrangere.id_ville ="+idville;
+    return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(CaisseEtrangere.class));
+}
    
   public List<CaisseEtrangere> save(CaisseEtrangereCrud CaisseEtrangereAjout , JdbcTemplate jdbcTemplate) throws DataAccessException  {
-      String sql = "INSERT INTO insur.caisseetrangere (nom,adresse,ville,pays,tel,fax,email) VALUES (?,?,?,?,?,?,?)";
+      String sql = "INSERT INTO insur.caisseetrangere (nom,adresse,id_ville,id_pays,tel,fax,email) VALUES (?,?,?,?,?,?,?)";
       jdbcTemplate.update(sql, CaisseEtrangereAjout.getNom(),
         CaisseEtrangereAjout.getAdresse(), CaisseEtrangereAjout.getId(),CaisseEtrangereAjout.getIdpays(),CaisseEtrangereAjout.getTelephone(),CaisseEtrangereAjout.getFax(),CaisseEtrangereAjout.getEmail());
       return this.list(jdbcTemplate);
@@ -34,7 +38,7 @@ public class CaisseEtrangereRepository {
   }
 
   public int update(CaisseEtrangereCrud caisseEtranegere , JdbcTemplate jdbcTemplate) throws DataAccessException {
-       String sql = "update insur.CaisseEtrangere set nom = ?, adresse = ? , ville = ? ,pays = ? , tel = ? , fax = ? , email = ? WHERE  code = ?";
+       String sql = "update insur.CaisseEtrangere set nom = ?, adresse = ? , id_ville = ? ,id_pays = ? , tel = ? , fax = ? , email = ? WHERE  code = ?";
       int count = jdbcTemplate.update(sql,  caisseEtranegere.getNom(),
       caisseEtranegere.getAdresse(), caisseEtranegere.getId(),caisseEtranegere.getIdpays(),caisseEtranegere.getTelephone(),caisseEtranegere.getFax(),caisseEtranegere.getEmail(),caisseEtranegere.getCode());
       return count;
@@ -45,4 +49,5 @@ public class CaisseEtrangereRepository {
       return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(CaisseEtrangere.class));
 
   }
+  
 }

@@ -86,3 +86,27 @@ CREATE TABLE DirectionRegional (
 
       commit;
 End;
+
+
+/*****************************************************/
+CREATE TABLE Historique_Dossier (
+    id_historique_dossier NUMBER  GENERATED ALWAYS AS IDENTITY,
+    n_dossier Number,
+    date_debut_soin DATE NULL,
+    date_fin_soin DATE NULL,
+    date_dossier DATE NULL,
+    n_assure NUMBER  ,
+    Montant_engage FLOAT(20) NULL,
+    Montant_a_remboureser FLOAT(20) NULL,
+    Type_dossier VARCHAR(50) NULL,
+    code_etat_dossier NUMBER  ,
+    n_utilisateur NUMBER ,
+    date_creation DATE ,
+    action VARCHAR(50) not NULL,
+    CONSTRAINT historique_dossier_pk PRIMARY KEY (id_historique_dossier),
+    CONSTRAINT assure_fk2 FOREIGN KEY (n_assure) REFERENCES assure(ID_ASSURÉ),
+    CONSTRAINT etat_dossier_fk2 FOREIGN KEY (code_etat_dossier) REFERENCES etat_dossier(ID_ETAT),
+    CONSTRAINT dossier_fk2 FOREIGN KEY (n_dossier) REFERENCES dossier(n_dossier),
+    CONSTRAINT utilisateur_fk2 FOREIGN KEY (n_utilisateur) REFERENCES utilisateur(cod)
+
+)

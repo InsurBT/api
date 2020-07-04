@@ -1,13 +1,22 @@
 package com.example.apipsia.model;
 
 public class DirectionRegional {
-    private int Code ;
+    private int Code;
     private String Designation;
     private String Adresse;
-    private int Ville;
+    private String Ville;
+    private int idville;
 
     public int getCode() {
         return Code;
+    }
+
+    public int getIdville() {
+        return idville;
+    }
+
+    public void setIdville(int idville) {
+        this.idville = idville;
     }
 
     public void setCode(int code) {
@@ -30,11 +39,11 @@ public class DirectionRegional {
         Adresse = adresse;
     }
 
-    public int getVille() {
+    public String getVille() {
         return Ville;
     }
 
-    public void setVille(int ville) {
+    public void setVille(String ville) {
         Ville = ville;
     }
 
@@ -44,7 +53,7 @@ public class DirectionRegional {
                 + "]";
     }
 
-	public DirectionRegional(int code, String designation, String adresse, int ville) {
+	public DirectionRegional(int code, String designation, String adresse, String ville) {
 		Code = code;
 		Designation = designation;
 		Adresse = adresse;

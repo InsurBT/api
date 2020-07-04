@@ -6,8 +6,10 @@ public class Utilisateur implements Serializable {
     private long cod;
     private String nom;
     private String nomComplet;
+    private String password;
     private int code_agence;
     private String agence;
+    private String role;
 
     public Utilisateur(long cod, String nom, String nomComplet) {
         this.cod = cod;
@@ -58,6 +60,23 @@ public class Utilisateur implements Serializable {
 
     public void setAgence(String agence) {
         this.agence = agence;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
     
 }

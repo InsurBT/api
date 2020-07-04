@@ -35,6 +35,15 @@ public class CaisseEtrangereController {
         } 
 
     }
+    @PostMapping(value = "getAll")
+    public ResponseEntity getAll(Authentication authentication, @RequestBody int idville) {
+        try{
+            List<CaisseEtrangere> caisseEtrangere = caisseEtrangereService.getAllCaisseEtrangere(idville, authentication.getPrincipal().toString());
+            return new ResponseEntity<>(caisseEtrangere, HttpStatus.ACCEPTED);
+        } catch (Exception exception) {
+            return new ResponseEntity<>("vous n'êtes pas connecté" ,HttpStatus.EXPECTATION_FAILED);
+        } 
+    }
 
 
 

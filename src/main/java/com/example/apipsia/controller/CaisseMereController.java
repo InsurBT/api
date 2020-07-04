@@ -37,6 +37,15 @@ public class CaisseMereController {
 
     }
 
+    @PostMapping(value = "getAll")
+    public ResponseEntity getAll(Authentication authentication, @RequestBody int idpays) {
+        try{
+            List<CaisseMere> CAISSEMERES = caissemereService.getAllCaissemere(idpays, authentication.getPrincipal().toString());
+            return new ResponseEntity<>(CAISSEMERES, HttpStatus.ACCEPTED);
+        } catch (Exception exception) {
+            return new ResponseEntity<>("vous n'êtes pas connecté" ,HttpStatus.EXPECTATION_FAILED);
+        } 
+    }
 
 
     @PostMapping(value = "save")

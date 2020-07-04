@@ -56,6 +56,15 @@ public class CaisseMereService {
 
         return null;
     }
+    public List<CaisseMere> getAllCaissemere(int idpays,String nom) throws DataAccessException {
+        JdbcTemplate jdbcTemplate = loginService.getActiveConnnections().get(nom);
+
+        if (!jdbcTemplate.equals(null)) {
+            return caisseMereRepository.findAllByPays(idpays,jdbcTemplate);
+        }
+
+        return null;
+    }
 
 
 }

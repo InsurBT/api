@@ -45,7 +45,7 @@ public class UtilisateurService {
         // String sql = "CREATE USER ? IDENTIFIED BY ?";
         // int c = jdbcTemplate.update(sql, utilisateur.getNom(), password);
 
-        return utilisateurRepository.addUtilisateur(utilisateur, jdbcTemplate);
+        return utilisateurRepository.addUser(utilisateur, jdbcTemplate);
         
     }
 

@@ -50,6 +50,7 @@ public class UtilisateurController {
 
             user.setNom((String)utilisateur.get("nom"));
             user.setNomComplet((String)utilisateur.get("nomComplet"));
+            user.setPassword((String)utilisateur.get("password"));
             user.setCode_agence((int)utilisateur.get("code_agence"));
             
             List<Utilisateur> utilisateurs = utilisateurService.ajouterUtilisateur(user, (String)utilisateur.get("password"), auth.getPrincipal().toString());

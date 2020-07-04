@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Pays implements Serializable {
     private int id;
-    private String nom;
+    private String label;
 
     public int getId() {
         return id;
@@ -14,17 +14,17 @@ public class Pays implements Serializable {
         this.id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public String getLabel() {
+        return label;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public Pays(int id, String nom) {
+    public Pays(int id, String label) {
         this.id = id;
-        this.nom = nom;
+        this.label = label;
     }
 
     public Pays() {

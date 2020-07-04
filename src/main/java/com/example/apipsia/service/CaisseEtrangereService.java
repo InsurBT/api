@@ -55,6 +55,15 @@ public class CaisseEtrangereService {
 
         return null;
     }
+    public List<CaisseEtrangere> getAllCaisseEtrangere(int idville,String nom) throws DataAccessException {
+        JdbcTemplate jdbcTemplate = loginService.getActiveConnnections().get(nom);
+
+        if (!jdbcTemplate.equals(null)) {
+            return caisseEtrangereRepository.findAllByPaysVille(idville,jdbcTemplate);
+        }
+
+        return null;
+    }
 
     
 }

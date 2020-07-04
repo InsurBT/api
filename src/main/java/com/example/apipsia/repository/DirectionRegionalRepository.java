@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DirectionRegionalRepository {
     public List<DirectionRegional> findAll(final JdbcTemplate jdbcTemplate) throws DataAccessException {
-        final String sql = "SELECT * FROM insur.DirectionRegional";
+        final String sql = "SELECT code,designation,adresse,ville as idville, ville.label as ville FROM insur.DirectionRegional , insur.ville where directionregional.ville = ville.id_ville";
 
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(DirectionRegional.class));
     
@@ -31,7 +31,7 @@ public class DirectionRegionalRepository {
             sql,
             directionregional.getAdresse(),
             directionregional.getDesignation(),
-            directionregional.getVille(),
+            directionregional.getIdville(),
             directionregional.getCode());
     }
 
@@ -42,7 +42,7 @@ public class DirectionRegionalRepository {
             sql,
             directionregional.getAdresse(),
             directionregional.getDesignation(),
-            directionregional.getVille()
+            directionregional.getIdville()
            
         );
 

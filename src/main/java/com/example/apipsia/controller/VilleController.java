@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.core.Authentication;
@@ -28,16 +30,14 @@ public class VilleController {
     VilleService villeService;
     private String label;
 
-    @GetMapping(value = "getAll")
-    public ResponseEntity getAll(Authentication authentication) {
-        try {
-            List<Ville> villes = villeService.getAllVille(0 ,authentication.getPrincipal().toString());
-
+    @PostMapping(value = "getAll")
+    public ResponseEntity getAll(Authentication authentication, @RequestBody int idpays) {
+        try{
+            List<Ville> villes = villeService.getAllVille(idpays, authentication.getPrincipal().toString());
             return new ResponseEntity<>(villes, HttpStatus.ACCEPTED);
         } catch (Exception exception) {
             return new ResponseEntity<>("vous n'êtes pas connecté" ,HttpStatus.EXPECTATION_FAILED);
         } 
-
     }
 
     @GetMapping(value = "getAl")
@@ -98,19 +98,16 @@ public class VilleController {
         }
             return "output ville=" + label;
     }
+
+
      @GetMapping(value = "getvilles")
     public  String findss()  {
         try (Connection conn = DriverManager.getConnection(
                 "jdbc:oracle:thin:@localhost:1521:orcl", "insur", "insurbt");
         ) {
-
             CallableStatement cs = conn.prepareCall("{call get_my_list(?)}");
-            
             cs.registerOutParameter(1,  Types.REF_CURSOR);
-
-            
             cs.executeQuery();
-            
             ResultSet rs=(ResultSet)cs.getObject(1);
             
             while(rs.next())
